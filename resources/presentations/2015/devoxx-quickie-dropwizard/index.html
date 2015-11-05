@@ -1,0 +1,285 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Dropwizard Quickie</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Dropwizard entering JEE land</h1>
+		<p>Koen Roevens, Fluid-IT</p>
+	</header>
+	<section class="slide cover" id="Cover"><div>
+		<h2>Dropwizard</h2>
+		<p>Brought to you by <a href="http://www.fluid-it.be">Koen Roevens</a></p>
+		<img src="pictures/Hexagons_Salar_de_Uyuni_Bolivia_(2086104060).png" alt="">
+		<!--
+			To apply styles to the certain slides
+			set slide ID to get needed elements
+			-->
+		<style>
+			#Cover h2 {
+				margin:150px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:180px;
+				}
+			#Cover p {
+				margin:10px 0 0;
+				text-align:center;
+				color:#888;
+				font-style:italic;
+				font-size:40px;
+				}
+            #Cover p a {
+                color:#888;
+            }
+		</style>
+	</div>
+    </section>
+	<section class="slide cover" id="Overview">
+        <div>
+            <img src="pictures/Dropwizard-Quickie-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="WhoAmI">
+        <div>
+            <img src="pictures/whoami-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="Glue">
+        <div>
+            <img src="pictures/Glue-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="DropwizardFriends">
+        <div>
+            <img src="pictures/Dropwizard-Friends-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="DropwizardClasses">
+        <div>
+            <img src="pictures/Dropwizard-Classes-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="Pom"><div>
+        <style>
+            #Pom h2 {
+                color:#BBB;
+            }
+        #Pom pre code {
+            font-size:16px;
+        }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+                &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                &lt;project ...&gt;
+                ...
+                &lt;dependencies&gt;
+                ...
+                &lt;dependency&gt;
+                &lt;groupId&gt;io.dropwizard&lt;/groupId&gt;
+                &lt;artifactId&gt;<mark>dropwizard-core</mark>&lt;/artifactId&gt;
+                &lt;version&gt;0.9.0&lt;/version&gt;
+                &lt;/dependency&gt;
+                ...
+                &lt;/dependencies&gt;
+                ...
+                &lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background.png" alt="">
+            </div>
+    </section>
+    <section class="slide cover" id="dropwizard.io">
+        <div>
+            <iframe width="100%" height="720" src="http://dropwizard.io/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        </div>
+    </section>
+    <section class="slide cover" id="DropwizardDemo">
+        <div>
+            <webview width="1280" height="500" src="chrome-extension://leakmhneaibbdapdoienlkifomjceknl/panel/index.html"></webview>
+        </div>
+    </section>
+	<section class="slide cover" id="OpsFriendly">
+        <div>
+            <img src="pictures/OpsFriendly-Hexagons.png" alt="">
+                </div>
+    </section>
+	<section class="slide cover" id="OpsApproved">
+        <div>
+            <img src="pictures/OpsFriendly-Approved-Hexagons.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="FlowQuote">
+        <div>
+            <style>
+                #FlowQuote h2 {
+                    color:#FFF;
+                }
+			#FlowQuote figure blockquote p {
+				font-size:42px;
+            }
+            </style>
+            <h2>Flow state</h2>
+            <figure>
+                <blockquote>
+                    <p>Flow is the mental state of operation in which a person performing an activity is fully immersed in a feeling of <b>energized focus</b>, full involvement, and enjoyment in the process of the activity.</p>
+                </blockquote>
+                <figcaption>Mihaly Csikzentmihaly</figcaption>
+            </figure>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="WhatOverview">
+        <div>
+            <img src="pictures/WhatOverview-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="TakeAwayFlowState">
+        <div>
+            <img src="pictures/Takeaway-FlowState-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="LessonsLearned">
+        <div>
+            <img src="pictures/LessonsLearned-Hexagons.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="MicroserviceFriends">
+        <div>
+            <img src="pictures/µService-Friends-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="MicroserviceClasses">
+        <div>
+            <img src="pictures/µService-Classes-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="Pom"><div>
+        <style>
+            #Pom h2 {
+                color:#BBB;
+            }
+        #Pom pre code {
+            font-size:16px;
+        }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;be.fluid-it.tools.dropwizard&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>wizard-in-a-box</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.8-2-1&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background.png" alt="">
+            </div>
+    </section>
+	<section class="slide cover" id="WizardInABox">
+        <div>
+            <img src="pictures/WizardInABox-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="WizardInABoxDesign">
+        <div>
+            <img src="pictures/WizardBoxDesign-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="PomWar"><div>
+        <style>
+            #PomWar h2 {
+                color:#BBB;
+            }
+        #PomWar pre code {
+            font-size:16px;
+        }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;be.fluid-it.tools.dropwizard&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>wizard-in-a-box</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.8-2-1&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background.png" alt="">
+            </div>
+    </section>
+    <section class="slide cover" id="Links">
+        <div>
+            <style>
+                #Links h2 {
+                    color:#EEE;
+                }
+                #Links ul {
+                    color:#BBB;
+                }
+                #Links li a {
+                    color:#BBB;
+                    font-size:28px;
+                }
+            </style>
+            <h2>Links</h2>
+            <ul>
+                <li><a href= "http://www.dropwizard.io/">http://www.dropwizard.io/</a></li>
+                <li><a href= "http://modules.dropwizard.io/thirdparty">http://modules.dropwizard.io/thirdparty</a></li>
+                <li><a href= "https://github.com/rvs-fluid-it/microservice-bundle">https://github.com/rvs-fluid-it/microservice-bundle</a></li>
+                <li><a href= "https://github.com/rvs-fluid-it/wizard-in-a-box">https://github.com/rvs-fluid-it/wizard-in-a-box</a></li>
+                <li><a href= "http://www.fluid-it.be/resources/presentations/2015/devoxx-quickie-dropwizard.html">http://www.fluid-it.be/resources/presentations/2015/devoxx-quickie-dropwizard.html</a></li>
+            </ul>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="ThankYou"><div>
+		<h2>Thank you.</h2>
+		<img src="pictures/Hexagons_Salar_de_Uyuni_Bolivia_(2086104060).png" alt="">
+            <!--
+             To apply styles to the certain slides
+             set slide ID to get needed elements
+             -->
+            <style>
+                #ThankYou h2 {
+                    margin:150px 0 0;
+                    color:#888;
+                    text-align:center;
+                    font-size:120px;
+				}
+            </style>
+            </div>
+    </section>
+	<p class="badge"><a href="https://github.com/shower/shower">Fork me on Github</a></p>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2015 Koen Roevens, Fluid-IT bvba -->
+</body>
+</html>
