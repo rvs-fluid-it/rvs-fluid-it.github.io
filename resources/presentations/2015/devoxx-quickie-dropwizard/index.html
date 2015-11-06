@@ -77,33 +77,156 @@
 		<h2>pom.xml</h2>
 		<pre>
 			<code>
-                &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-                &lt;project ...&gt;
-                ...
-                &lt;dependencies&gt;
-                ...
-                &lt;dependency&gt;
-                &lt;groupId&gt;io.dropwizard&lt;/groupId&gt;
-                &lt;artifactId&gt;<mark>dropwizard-core</mark>&lt;/artifactId&gt;
-                &lt;version&gt;0.9.0&lt;/version&gt;
-                &lt;/dependency&gt;
-                ...
-                &lt;/dependencies&gt;
-                ...
-                &lt;/project&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.dropwizard&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>dropwizard-core</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
             </code>
 		</pre>
         <img src="pictures/Hexagons-Background.png" alt="">
             </div>
     </section>
+
+    <section class="slide cover" id="ConfigYml">
+        <div>
+            <style>
+                #ConfigYml h2 {
+                    color:#BBB;
+                }
+                #ConfigYml pre code {
+                    font-size:16px;
+                }
+            </style>
+    	    <h2>devoxx.yml</h2>
+		    <pre>
+			    <code>
+<mark>name: "Devoxx Antwerp"</mark>
+
+server:
+  applicationConnectors:
+    - type: http
+      port: <mark>8880</mark>
+  adminConnectors:
+    - type: http
+      port: 8881
+                  </code>
+              </pre>
+              <img src="pictures/Hexagons-Background.png" alt="">
+          </div>
+      </section>
+    <section class="slide cover" id="ConfigJava">
+        <div>
+            <style>
+                #ConfigJava h2 {
+                    color:#BBB;
+                }
+                #ConfigJava pre code {
+                    font-size:16px;
+                }
+            </style>
+    	    <h2>DevoxxConfig.java</h2>
+		    <pre>
+			    <code>
+public class DevoxxConfig <mark>extends Configuration</mark> {
+    <mark>@NotEmpty</mark>
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+            </code>
+        </pre>
+        <img src="pictures/Hexagons-Background.png" alt="">
+    </div>
+</section>
+    
+
+    <section class="slide cover" id="Application"><div>
+        <style>
+            #Application h2 {
+                color:#BBB;
+            }
+            #Application pre code {
+                font-size:16px;
+            }
+        </style>
+    	<h2>DevoxxApplication.java</h2>
+    		<pre>
+    			<code>
+...
+public class DevoxxApplication <mark>extends Application&lt;DevoxxConfig&gt;</mark> {
+  public static void main(String[] args) throws Exception {
+    new DevoxxApplication().<mark>run</mark>("server", "./src/main/config/application/devoxx.yml");
+  }
+
+  @Override
+  public void run(<mark>DevoxxConfig devoxxConfig</mark>, <mark>Environment environment</mark>) throws Exception {
+    environment.<mark>jersey()</mark>.register(new HelloResource(getName(), <mark>devoxxConfig.getName()</mark>));
+    environment.jersey().register(ExplodeResource.class);
+  }
+}
+                </code>
+    		</pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+                </div>
+        </section>
+
+    <section class="slide cover" id="RestResource">
+        <div>
+            <style>
+                #RestResource h2 {
+                    color:#BBB;
+                }
+                #RestResource pre code {
+                    font-size:12px;
+                }
+            </style>
+            <h2>HelloResource.java</h2>
+            <pre>
+            	<code>
+...
+@Path("/hello")
+@Produces(MediaType.APPLICATION_JSON)
+public class HelloResource {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final String name, prompt;
+
+    public HelloResource(String prompt, String name) {
+        this.prompt = prompt;
+        this.name = name;
+    }
+
+    @GET
+    <mark>@Timed</mark>
+    public String hello() {
+        String response = prompt + "> Hello " + name + "!";
+        logger.info(response);
+        return response;
+    }
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+
     <section class="slide cover" id="dropwizard.io">
         <div>
             <iframe width="100%" height="720" src="http://dropwizard.io/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
-        </div>
-    </section>
-    <section class="slide cover" id="DropwizardDemo">
-        <div>
-            <webview width="1280" height="500" src="chrome-extension://leakmhneaibbdapdoienlkifomjceknl/panel/index.html"></webview>
         </div>
     </section>
 	<section class="slide cover" id="OpsFriendly">
@@ -161,12 +284,198 @@
             <img src="pictures/µService-Classes-Hexagons.png" alt="">
         </div>
     </section>
-    <section class="slide cover" id="WizardInABox">
+	<section class="slide cover" id="ServicePom"><div>
+        <style>
+            #ServicePom h2 {
+                color:#BBB;
+            }
+        #ServicePom pre code {
+            font-size:16px;
+        }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;be.fluid-it.microservice.bundle&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>microservice-bundle-core</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.1-6&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background.png" alt="">
+            </div>
+    </section>
+    
+    <section class="slide cover" id="Service">
+        <div>
+            <style>
+                #Service h2 {
+                    color:#BBB;
+                }
+                #Service pre code {
+                    font-size:12px;
+                }
+            </style>
+        	<h2>DevoxxService.java</h2>
+        	<pre>
+        		<code>
+...
+public class DevoxxService extends <mark>µService&lt;DevoxxConfig&gt;</mark> {
+    static {
+        µService.µServiceClass = DevoxxService.class;
+        µService.relativePathToYmlInIDE = <mark>"./src/main/config/service/devoxx.yml"</mark>;
+    }
+
+    @Override
+    public void initialize(µsBundle.Builder&lt;DevoxxConfig&gt; µsBundleBuilder) {
+        µsBundleBuilder.<mark>addModule</mark>(new DevoxxModule(getName())).<mark>addRoutes</mark>(DevoxxRoutes.class);
+    }
+
+    @Override
+    public Class&lt;DevoxxConfig>&gt; configurationClass() { return DevoxxConfig.class;}
+
+    @Override
+    protected void run(DevoxxConfig configuration, Environment environment, <mark>µsEnvironment µsEnvironment</mark>) throws Exception {
+        environment.jersey().register(<mark>HelloResource.class</mark>);
+    }
+}
+                </code>
+        	</pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+    
+    <section class="slide cover" id="Module">
+        <div>
+            <style>
+                #Module h2 {
+                    color:#BBB;
+                }
+                #Module pre code {
+                    font-size:13px;
+                }
+            </style>
+            <h2>DevoxxModule.java</h2>
+            <pre>
+            	<code>
+...
+public class DevoxxModule implements <mark>ApplicationModule</mark> {
+    private final String prompt;
+
+    public DevoxxModule(String prompt) {
+        this.prompt = prompt;
+    }
+
+    @Override
+    public void configure(Binder binder) {                    
+        binder.bind(String.class).annotatedWith(Names.named("prompt")).toInstance(prompt);
+    }
+
+    @Provides
+    @Named("name")
+    public String providesName(<mark>DevoxxConfig config</mark>) {
+        return config.getName();
+    }
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+
+    <section class="slide cover" id="InjectedResource">
+        <div>
+            <style>
+                #InjectedResource h2 {
+                    color:#BBB;
+                }
+                #InjectedResource pre code {
+                    font-size:12px;
+                }
+            </style>
+            <h2>HelloResource.java</h2>
+            <pre>
+                <code>
+...
+@Path("/hello")
+@Produces(MediaType.APPLICATION_JSON)
+public class HelloResource {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final String name, prompt;
+
+    <mark>@Inject</mark>
+    public HelloResource(<mark>@Named("prompt")</mark> String prompt, <mark>@Named("name")</mark> String name) {
+        this.prompt = prompt;
+        this.name = name;
+    }
+
+    @GET
+    @Timed
+    public String hello() {
+        String response = prompt + "> Hello " + name + "!";
+        logger.info(response);
+        return response;
+    }
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+
+    <section class="slide cover" id="Routes">
+        <div>
+            <style>
+                #Routes h2 {
+                    color:#BBB;
+                }
+                #Routes pre code {
+                    font-size:13px;
+                }
+            </style>
+            <h2>DevoxxRoutes.java</h2>
+            <pre>
+            	<code>
+...
+public class DevoxxRoutes extends RouteBuilder {
+    private final String name, prompt;
+
+    <mark>@Inject</mark>
+    public DevoxxRoutes(@Named("prompt") String prompt, @Named("name") String name) {
+        this.prompt = prompt;
+        this.name = name;
+    }
+
+    @Override
+    public void configure() throws Exception {
+        <mark>rest("/route/hello")</mark>.<mark>get()</mark>.produces(MediaType.TEXT_HTML)
+            .route().transform().constant(hello()).log(LoggingLevel.INFO, hello());
+        restConfiguration().component("jersey2");
+    }
+
+    private String hello() { return prompt + ":Route> Hello " + name + "!" ;}
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+
+	<section class="slide cover" id="WizardInABox">
         <div>
             <img src="pictures/WizardInABox-Hexagons.png" alt="">
         </div>
     </section>
-    <section class="slide cover" id="WizardInABoxDesign">
+	<section class="slide cover" id="WizardInABoxDesign">
         <div>
             <img src="pictures/WizardBoxDesign-Hexagons.png" alt="">
         </div>
@@ -176,9 +485,9 @@
             #PomWar h2 {
                 color:#BBB;
             }
-        #PomWar pre code {
-            font-size:16px;
-        }
+            #PomWar pre code {
+                font-size:16px;
+            }
         </style>
 		<h2>pom.xml</h2>
 		<pre>
@@ -199,7 +508,35 @@
             </code>
 		</pre>
         <img src="pictures/Hexagons-Background.png" alt="">
-            </div>
+        </div>
+    </section>
+    <section class="slide cover" id="WebApplication">
+        <div>
+            <style>
+                #WebApplication h2 {
+                    color:#BBB;
+                }
+                #WebApplication pre code {
+                    font-size:16px;
+                }
+            </style>
+    		<h2>pom.xml</h2>
+    		<pre>
+    			<code>
+...
+@WebListener
+public class DevoxxWebApplication extends <mark>WebApplication&lt;DevoxxConfig&gt;</mark> {
+    public DevoxxWebApplication() {
+        super(<mark>new DevoxxApplication()</mark> {
+            @Override
+            public String getName() { return DevoxxWebApplication.class.getSimpleName();}
+        }, "jee/devoxx.yml");
+    }
+}
+                </code>
+    		</pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
     </section>
     <section class="slide cover" id="Links">
         <div>
@@ -239,7 +576,7 @@
                     color:#888;
                     text-align:center;
                     font-size:120px;
-				}
+		}
             </style>
             </div>
     </section>
