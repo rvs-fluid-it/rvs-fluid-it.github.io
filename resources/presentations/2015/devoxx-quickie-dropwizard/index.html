@@ -6,6 +6,8 @@
 	<meta name="viewport" content="width=792, user-scalable=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
 	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+    <!-- Added for Ajax requests -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 <body class="list">
 	<header class="caption">
@@ -223,17 +225,52 @@ public class HelloResource {
             <img src="pictures/Hexagons-Background-Light.png" alt="">
         </div>
     </section>
-
+    <section class="slide cover" id="ApplicationHello">
+        <div id="divMsgId">
+            <style>
+                #ApplicationHello h2 {
+                    color:#333;
+                }
+                #ApplicationHello pre code {
+                    font-size:32px;
+                }
+            </style>
+            <h2>http://localhost:8880/hello</h2>
+            <pre>
+                <code><mark id="ApplicationHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
     <section class="slide cover" id="dropwizard.io">
         <div>
             <iframe width="100%" height="720" src="http://dropwizard.io/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
         </div>
     </section>
-	<section class="slide cover" id="OpsFriendly">
+    <section class="slide cover" id="OpsFriendly">
         <div>
             <img src="pictures/OpsFriendly-Hexagons.png" alt="">
-                </div>
+        </div>
     </section>
+    
+    <section class="slide cover" id="ApplicationError">
+        <div id="divMsgId">
+            <style>
+                #ApplicationError h2 {
+                    color:#333;
+                }
+                #ApplicationError pre code {
+                    font-size:16px;
+                }
+            </style>
+            <h2>http://localhost:8880/explode</h2>
+            <pre>
+                <code><mark id="ApplicationErrorOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+    
 	<section class="slide cover" id="OpsApproved">
         <div>
             <img src="pictures/OpsFriendly-Approved-Hexagons.png" alt="">
@@ -259,7 +296,7 @@ public class HelloResource {
             <img src="pictures/Hexagons-Background.png" alt="">
         </div>
     </section>
-	<section class="slide cover" id="WhatOverview">
+	<!--section class="slide cover" id="WhatOverview">
         <div>
             <img src="pictures/WhatOverview-Hexagons.png" alt="">
         </div>
@@ -268,7 +305,7 @@ public class HelloResource {
         <div>
             <img src="pictures/Takeaway-FlowState-Hexagons.png" alt="">
         </div>
-    </section>
+    </section-->
 	<section class="slide cover" id="LessonsLearned">
         <div>
             <img src="pictures/LessonsLearned-Hexagons.png" alt="">
@@ -469,8 +506,42 @@ public class DevoxxRoutes extends RouteBuilder {
             <img src="pictures/Hexagons-Background-Light.png" alt="">
         </div>
     </section>
+    <section class="slide cover" id="ServiceHello">
+        <div id="divMsgId">
+            <style>
+                #ServiceHello h2 {
+                    color:#333;
+                }
+                #ServiceHello pre code {
+                    font-size:32px;
+                }
+            </style>
+            <h2>http://localhost:8882/hello</h2>
+            <pre>
+                <code><mark id="ServiceHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+                </div>
+    </section>
+    <section class="slide cover" id="ServiceRouteHello">
+        <div id="divMsgId">
+            <style>
+                #ServiceRouteHello h2 {
+                    color:#333;
+                }
+            #ServiceRouteHello pre code {
+                font-size:32px;
+            }
+            </style>
+            <h2>http://localhost:8882/route/hello</h2>
+            <pre>
+                <code><mark id="ServiceRouteHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+                </div>
+    </section>
 
-	<section class="slide cover" id="WizardInABox">
+    <section class="slide cover" id="WizardInABox">
         <div>
             <img src="pictures/WizardInABox-Hexagons.png" alt="">
         </div>
@@ -538,6 +609,23 @@ public class DevoxxWebApplication extends <mark>WebApplication&lt;DevoxxConfig&g
             <img src="pictures/Hexagons-Background-Light.png" alt="">
         </div>
     </section>
+    <section class="slide cover" id="BoxedHello">
+        <div id="divMsgId">
+            <style>
+                #BoxedHello h2 {
+                    color:#333;
+                }
+                #BoxedHello pre code {
+                    font-size:32px;
+                }
+            </style>
+            <h2>http://localhost:8884/DevoxxJEE/application/hello</h2>
+            <pre>
+                <code><mark id="BoxedHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
     <section class="slide cover" id="Links">
         <div>
             <style>
@@ -587,6 +675,80 @@ public class DevoxxWebApplication extends <mark>WebApplication&lt;DevoxxConfig&g
 		-->
 	<div class="progress"><div></div></div>
 	<script src="shower/shower.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+                          var makeAjaxCall = function(consoleId, url, dataType,  mvnHint) {
+                          $(consoleId).html("Waiting response ...");
+                          $.ajax({
+                                 url: url,
+                                 type: "GET",
+                                 dataType: dataType,
+                                 crossDomain: true,
+                                 success: function (response) {
+                                    console.log("Received Ajax response: " + response);
+                                    var responseText;
+                                    switch (dataType) {
+                                        case "json":
+                                            responseText = JSON.stringify(response);
+                                            break;
+                                        case "text":
+                                            responseText = response;
+                                            break;
+                                        case "json":
+                                            responseText = "Unknown dataType ...";
+                                 }
+                                 $(consoleId).html(responseText);
+                                 },
+                                 error: function (xhr, status) {
+                                    console.log("Received Ajax error");
+                                    var responseText = "Is server running? If not, run '" + mvnHint + "'";;
+                                    if (status == "error") {
+                                            var text = JSON.stringify(xhr.responseText, null, 2);
+                                            if (text && text.indexOf("500") > -1) {
+                                                responseText = text;
+                                            }
+                                    }
+                                    $(consoleId).html(responseText);
+                                 }
+                                 });
+                          };
+                          
+                          var nextSectionId = function(section) {
+                            var nextSectionId;
+                            var sectionFound = false;
+                            $("section").each(function() {
+                                              if ($(this).attr("id") == section.attr("id")) {
+                                                sectionFound = true;
+                                                return true;
+                                              } else {
+                                                nextSectionId = $(this).attr("id");
+                                                return !sectionFound;
+                                              }
+                                        });
+                            return nextSectionId;
+                          };
+                          
+                          var registerAjaxCall = function(slideId, consoleId, url, dataType, mvnHint) {
+                          $("body").keydown(function(e) {
+                                            if(e.keyCode == 37) { // left
+                                            if (nextSectionId($(".slide.cover.active")) == slideId) {
+                                                makeAjaxCall(consoleId, url, dataType, mvnHint);
+                                            }
+                                            } else if(e.keyCode == 39) { // right
+                                            if (nextSectionId($(".slide.cover.active")) == slideId) {
+                                                makeAjaxCall(consoleId, url, dataType, mvnHint);
+                                            }
+                                            }
+                                            });
+                          
+                          };
+                          registerAjaxCall("ApplicationHello", "#ApplicationHelloOut", "http://localhost:8880/hello", "text", "mvn -Papp exec:java");
+                          registerAjaxCall("ApplicationError", "#ApplicationErrorOut", "http://localhost:8880/explode", "json", "mvn -Papp exec:java");
+                          registerAjaxCall("ServiceHello", "#ServiceHelloOut", "http://localhost:8882/hello", "text", "mvn -Psvc exec:java");
+                          registerAjaxCall("ServiceRouteHello", "#ServiceRouteHelloOut", "http://localhost:8882/route/hello", "text", "mvn -Psvc exec:java");
+                          registerAjaxCall("BoxedHello", "#BoxedHelloOut", "http://localhost:8884/DevoxxJEE/application/hello", "text", "mvn install tomcat7:run-war-only");
+        });
+    </script>
 	<!-- Copyright © 2015 Koen Roevens, Fluid-IT bvba -->
 </body>
 </html>
