@@ -1,0 +1,754 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Dropwizard Quickie</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+    <!-- Added for Ajax requests -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Dropwizard entering JEE land</h1>
+		<p>Koen Roevens, Fluid-IT</p>
+	</header>
+	<section class="slide cover" id="Cover"><div>
+		<h2>Dropwizard</h2>
+		<p>Brought to you by <a href="http://www.fluid-it.be">Koen Roevens</a></p>
+		<img src="pictures/Hexagons_Salar_de_Uyuni_Bolivia_(2086104060).png" alt="">
+		<!--
+			To apply styles to the certain slides
+			set slide ID to get needed elements
+			-->
+		<style>
+			#Cover h2 {
+				margin:150px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:180px;
+				}
+			#Cover p {
+				margin:10px 0 0;
+				text-align:center;
+				color:#888;
+				font-style:italic;
+				font-size:40px;
+				}
+            #Cover p a {
+                color:#888;
+            }
+		</style>
+	</div>
+    </section>
+	<section class="slide cover" id="Overview">
+        <div>
+            <img src="pictures/Dropwizard-Quickie-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="WhoAmI">
+        <div>
+            <img src="pictures/whoami-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="Glue">
+        <div>
+            <img src="pictures/Glue-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="DropwizardFriends">
+        <div>
+            <img src="pictures/Dropwizard-Friends-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="DropwizardClasses">
+        <div>
+            <img src="pictures/Dropwizard-Classes-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="Pom"><div>
+        <style>
+            #Pom h2 {
+                color:#EEE;
+            }
+        #Pom pre code {
+            font-size:16px;
+        }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;io.dropwizard&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>dropwizard-core</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background-Light.png" alt="">
+            </div>
+    </section>
+
+    <section class="slide cover" id="ConfigYml">
+        <div>
+            <style>
+                #ConfigYml h2 {
+                    color:#EEE;
+                }
+                #ConfigYml pre code {
+                    font-size:16px;
+                }
+            </style>
+    	    <h2>devoxx.yml</h2>
+		    <pre>
+			    <code>
+<mark>name: "Devoxx Antwerp"</mark>
+
+server:
+  applicationConnectors:
+    - type: http
+      port: <mark>8880</mark>
+  adminConnectors:
+    - type: http
+      port: 8881
+                  </code>
+              </pre>
+              <img src="pictures/Hexagons-Background-Light.png" alt="">
+          </div>
+      </section>
+    <section class="slide cover" id="ConfigJava">
+        <div>
+            <style>
+                #ConfigJava h2 {
+                    color:#EEE;
+                }
+                #ConfigJava pre code {
+                    font-size:16px;
+                }
+            </style>
+    	    <h2>DevoxxConfig.java</h2>
+		    <pre>
+			    <code>
+public class DevoxxConfig <mark>extends Configuration</mark> {
+    <mark>@NotEmpty</mark>
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+            </code>
+        </pre>
+        <img src="pictures/Hexagons-Background-Light.png" alt="">
+    </div>
+</section>
+    
+
+    <section class="slide cover" id="Application"><div>
+        <style>
+            #Application h2 {
+                color:#EEE;
+            }
+            #Application pre code {
+                font-size:16px;
+            }
+        </style>
+    	<h2>DevoxxApplication.java</h2>
+    		<pre>
+    			<code>
+...
+public class DevoxxApplication <mark>extends Application&lt;DevoxxConfig&gt;</mark> {
+  public static void main(String[] args) throws Exception {
+    new DevoxxApplication().<mark>run</mark>("server", "./src/main/config/application/devoxx.yml");
+  }
+
+  @Override
+  public void run(<mark>DevoxxConfig devoxxConfig</mark>, <mark>Environment environment</mark>) throws Exception {
+    environment.<mark>jersey()</mark>.register(new HelloResource(getName(), <mark>devoxxConfig.getName()</mark>));
+    environment.jersey().register(ExplodeResource.class);
+  }
+}
+                </code>
+    		</pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+                </div>
+        </section>
+
+    <section class="slide cover" id="RestResource">
+        <div>
+            <style>
+                #RestResource h2 {
+                    color:#EEE;
+                }
+                #RestResource pre code {
+                    font-size:12px;
+                }
+            </style>
+            <h2>HelloResource.java</h2>
+            <pre>
+            	<code>
+...
+@Path("/hello")
+@Produces(MediaType.APPLICATION_JSON)
+public class HelloResource {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final String name, prompt;
+
+    public HelloResource(String prompt, String name) {
+        this.prompt = prompt;
+        this.name = name;
+    }
+
+    @GET
+    <mark>@Timed</mark>
+    public String hello() {
+        String response = prompt + "> Hello " + name + "!";
+        logger.info(response);
+        return response;
+    }
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="ApplicationHello">
+        <div id="divMsgId">
+            <style>
+                #ApplicationHello h2 {
+                    color:#333;
+                }
+                #ApplicationHello pre code {
+                    font-size:32px;
+                }
+            </style>
+            <h2>http://localhost:8880/hello</h2>
+            <pre>
+                <code><mark id="ApplicationHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="dropwizard.io">
+        <div>
+            <iframe width="100%" height="720" src="http://dropwizard.io/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+        </div>
+    </section>
+    <section class="slide cover" id="OpsFriendly">
+        <div>
+            <img src="pictures/OpsFriendly-Hexagons.png" alt="">
+        </div>
+    </section>
+    
+    <section class="slide cover" id="ApplicationError">
+        <div id="divMsgId">
+            <style>
+                #ApplicationError h2 {
+                    color:#333;
+                }
+                #ApplicationError pre code {
+                    font-size:16px;
+                }
+            </style>
+            <h2>http://localhost:8880/explode</h2>
+            <pre>
+                <code><mark id="ApplicationErrorOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+    
+	<section class="slide cover" id="OpsApproved">
+        <div>
+            <img src="pictures/OpsFriendly-Approved-Hexagons.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="FlowQuote">
+        <div>
+            <style>
+                #FlowQuote h2 {
+                    color:#FFF;
+                }
+			#FlowQuote figure blockquote p {
+				font-size:42px;
+            }
+            </style>
+            <h2>Flow state</h2>
+            <figure>
+                <blockquote>
+                    <p>Flow is the mental state of operation in which a person performing an activity is fully immersed in a feeling of <b>energized focus</b>, full involvement, and enjoyment in the process of the activity.</p>
+                </blockquote>
+                <figcaption>Mihaly Csikzentmihaly</figcaption>
+            </figure>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+	<!--section class="slide cover" id="WhatOverview">
+        <div>
+            <img src="pictures/WhatOverview-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="TakeAwayFlowState">
+        <div>
+            <img src="pictures/Takeaway-FlowState-Hexagons.png" alt="">
+        </div>
+    </section-->
+	<section class="slide cover" id="LessonsLearned">
+        <div>
+            <img src="pictures/LessonsLearned-Hexagons.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="MicroserviceFriends">
+        <div>
+            <img src="pictures/µService-Friends-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="MicroserviceClasses">
+        <div>
+            <img src="pictures/µService-Classes-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="ServicePom"><div>
+        <style>
+            #ServicePom h2 {
+                color:#EEE;
+            }
+        #ServicePom pre code {
+            font-size:16px;
+        }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;be.fluid-it.microservice.bundle&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>microservice-bundle-core</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.1-6&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background-Light.png" alt="">
+            </div>
+    </section>
+    
+    <section class="slide cover" id="Service">
+        <div>
+            <style>
+                #Service h2 {
+                    color:#EEE;
+                }
+                #Service pre code {
+                    font-size:12px;
+                }
+            </style>
+        	<h2>DevoxxService.java</h2>
+        	<pre>
+        		<code>
+...
+public class DevoxxService extends <mark>µService&lt;DevoxxConfig&gt;</mark> {
+    static {
+        µService.µServiceClass = DevoxxService.class;
+        µService.relativePathToYmlInIDE = <mark>"./src/main/config/service/devoxx.yml"</mark>;
+    }
+
+    @Override
+    public void initialize(µsBundle.Builder&lt;DevoxxConfig&gt; µsBundleBuilder) {
+        µsBundleBuilder.<mark>addModule</mark>(new DevoxxModule(getName())).<mark>addRoutes</mark>(DevoxxRoutes.class);
+    }
+
+    @Override
+    public Class&lt;DevoxxConfig>&gt; configurationClass() { return DevoxxConfig.class;}
+
+    @Override
+    protected void run(DevoxxConfig configuration, Environment environment, <mark>µsEnvironment µsEnvironment</mark>) throws Exception {
+        environment.jersey().register(<mark>HelloResource.class</mark>);
+    }
+}
+                </code>
+        	</pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+    
+    <section class="slide cover" id="Module">
+        <div>
+            <style>
+                #Module h2 {
+                    color:#EEE;
+                }
+                #Module pre code {
+                    font-size:13px;
+                }
+            </style>
+            <h2>DevoxxModule.java</h2>
+            <pre>
+            	<code>
+...
+public class DevoxxModule implements <mark>ApplicationModule</mark> {
+    private final String prompt;
+
+    public DevoxxModule(String prompt) {
+        this.prompt = prompt;
+    }
+
+    @Override
+    public void configure(Binder binder) {                    
+        binder.bind(String.class).annotatedWith(Names.named("prompt")).toInstance(prompt);
+    }
+
+    @Provides
+    @Named("name")
+    public String providesName(<mark>DevoxxConfig config</mark>) {
+        return config.getName();
+    }
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+
+    <section class="slide cover" id="InjectedResource">
+        <div>
+            <style>
+                #InjectedResource h2 {
+                    color:#EEE;
+                }
+                #InjectedResource pre code {
+                    font-size:12px;
+                }
+            </style>
+            <h2>HelloResource.java</h2>
+            <pre>
+                <code>
+...
+@Path("/hello")
+@Produces(MediaType.APPLICATION_JSON)
+public class HelloResource {
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private final String name, prompt;
+
+    <mark>@Inject</mark>
+    public HelloResource(<mark>@Named("prompt")</mark> String prompt, <mark>@Named("name")</mark> String name) {
+        this.prompt = prompt;
+        this.name = name;
+    }
+
+    @GET
+    @Timed
+    public String hello() {
+        String response = prompt + "> Hello " + name + "!";
+        logger.info(response);
+        return response;
+    }
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+
+    <section class="slide cover" id="Routes">
+        <div>
+            <style>
+                #Routes h2 {
+                    color:#EEE;
+                }
+                #Routes pre code {
+                    font-size:13px;
+                }
+            </style>
+            <h2>DevoxxRoutes.java</h2>
+            <pre>
+            	<code>
+...
+public class DevoxxRoutes extends RouteBuilder {
+    private final String name, prompt;
+
+    <mark>@Inject</mark>
+    public DevoxxRoutes(@Named("prompt") String prompt, @Named("name") String name) {
+        this.prompt = prompt;
+        this.name = name;
+    }
+
+    @Override
+    public void configure() throws Exception {
+        <mark>rest("/route/hello")</mark>.<mark>get()</mark>.produces(MediaType.TEXT_HTML)
+            .route().transform().constant(hello()).log(LoggingLevel.INFO, hello());
+        restConfiguration().component("jersey2");
+    }
+
+    private String hello() { return prompt + ":Route> Hello " + name + "!" ;}
+}
+                </code>
+            </pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="ServiceHello">
+        <div id="divMsgId">
+            <style>
+                #ServiceHello h2 {
+                    color:#333;
+                }
+                #ServiceHello pre code {
+                    font-size:32px;
+                }
+            </style>
+            <h2>http://localhost:8882/hello</h2>
+            <pre>
+                <code><mark id="ServiceHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+                </div>
+    </section>
+    <section class="slide cover" id="ServiceRouteHello">
+        <div id="divMsgId">
+            <style>
+                #ServiceRouteHello h2 {
+                    color:#333;
+                }
+            #ServiceRouteHello pre code {
+                font-size:32px;
+            }
+            </style>
+            <h2>http://localhost:8882/route/hello</h2>
+            <pre>
+                <code><mark id="ServiceRouteHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+                </div>
+    </section>
+
+    <section class="slide cover" id="WizardInABox">
+        <div>
+            <img src="pictures/WizardInABox-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="WizardInABoxDesign">
+        <div>
+            <img src="pictures/WizardBoxDesign-Hexagons.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="PomWar"><div>
+        <style>
+            #PomWar h2 {
+                color:#EEE;
+            }
+            #PomWar pre code {
+                font-size:16px;
+            }
+        </style>
+		<h2>pom.xml</h2>
+		<pre>
+			<code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project ...&gt;
+  ...
+  &lt;dependencies&gt;
+    ...
+    &lt;dependency&gt;
+      &lt;groupId&gt;be.fluid-it.tools.dropwizard&lt;/groupId&gt;
+      &lt;artifactId&gt;<mark>wizard-in-a-box</mark>&lt;/artifactId&gt;
+      &lt;version&gt;0.8-2-1&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+            </code>
+		</pre>
+        <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="WebApplication">
+        <div>
+            <style>
+                #WebApplication h2 {
+                    color:#EEE;
+                }
+                #WebApplication pre code {
+                    font-size:16px;
+                }
+            </style>
+    		<h2>pom.xml</h2>
+    		<pre>
+    			<code>
+...
+@WebListener
+public class DevoxxWebApplication extends <mark>WebApplication&lt;DevoxxConfig&gt;</mark> {
+    public DevoxxWebApplication() {
+        super(<mark>new DevoxxApplication()</mark> {
+            @Override
+            public String getName() { return DevoxxWebApplication.class.getSimpleName();}
+        }, "jee/devoxx.yml");
+    }
+}
+                </code>
+    		</pre>
+            <img src="pictures/Hexagons-Background-Light.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="BoxedHello">
+        <div id="divMsgId">
+            <style>
+                #BoxedHello h2 {
+                    color:#333;
+                }
+                #BoxedHello pre code {
+                    font-size:32px;
+                }
+            </style>
+            <h2>http://localhost:8884/DevoxxJEE/application/hello</h2>
+            <pre>
+                <code><mark id="BoxedHelloOut">Waiting for response ...</mark></code>
+            </pre>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+    <section class="slide cover" id="Links">
+        <div>
+            <style>
+                #Links h2 {
+                    color:#EEE;
+                }
+                #Links ul {
+                    color:#BBB;
+                }
+                #Links li a {
+                    color:#BBB;
+                    font-size:28px;
+                }
+            </style>
+            <h2>Links</h2>
+            <ul>
+                <li><a href= "http://www.dropwizard.io/">http://www.dropwizard.io/</a></li>
+                <li><a href= "http://modules.dropwizard.io/thirdparty">http://modules.dropwizard.io/thirdparty</a></li>
+                <li><a href= "https://github.com/rvs-fluid-it/microservice-bundle">https://github.com/rvs-fluid-it/microservice-bundle</a></li>
+                <li><a href= "https://github.com/rvs-fluid-it/wizard-in-a-box">https://github.com/rvs-fluid-it/wizard-in-a-box</a></li>
+                <li><a href= "http://www.fluid-it.be/resources/presentations/2015/devoxx-quickie-dropwizard.html">http://www.fluid-it.be/resources/presentations/2015/devoxx-quickie-dropwizard</a></li>
+            </ul>
+            <img src="pictures/Hexagons-Background.png" alt="">
+        </div>
+    </section>
+	<section class="slide cover" id="ThankYou"><div>
+		<h2>Thank you.</h2>
+		<img src="pictures/Hexagons_Salar_de_Uyuni_Bolivia_(2086104060).png" alt="">
+            <!--
+             To apply styles to the certain slides
+             set slide ID to get needed elements
+             -->
+            <style>
+                #ThankYou h2 {
+                    margin:150px 0 0;
+                    color:#888;
+                    text-align:center;
+                    font-size:120px;
+		}
+            </style>
+            </div>
+    </section>
+	<p class="badge"><a href="https://github.com/shower/shower">Fork me on Github</a></p>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+		-->
+	<div class="progress"><div></div></div>
+	<script src="shower/shower.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+                          var makeAjaxCall = function(consoleId, url, dataType,  mvnHint) {
+                          $(consoleId).html("Waiting response ...");
+                          $.ajax({
+                                 url: url,
+                                 type: "GET",
+                                 dataType: dataType,
+                                 crossDomain: true,
+                                 success: function (response) {
+                                    console.log("Received Ajax response: " + response);
+                                    var responseText;
+                                    switch (dataType) {
+                                        case "json":
+                                            responseText = JSON.stringify(response);
+                                            break;
+                                        case "text":
+                                            responseText = response;
+                                            break;
+                                        case "json":
+                                            responseText = "Unknown dataType ...";
+                                 }
+                                 $(consoleId).html(responseText);
+                                 },
+                                 error: function (xhr, status) {
+                                    console.log("Received Ajax error");
+                                    var responseText = "Is server running? If not, run '" + mvnHint + "'";;
+                                    if (status == "error") {
+                                            var text = JSON.stringify(xhr.responseText, null, 2);
+                                            if (text && text.indexOf("500") > -1) {
+                                                responseText = text;
+                                            }
+                                    }
+                                    $(consoleId).html(responseText);
+                                 }
+                                 });
+                          };
+                          
+                          var nextSectionId = function(section) {
+                            var nextSectionId;
+                            var sectionFound = false;
+                            $("section").each(function() {
+                                              if ($(this).attr("id") == section.attr("id")) {
+                                                sectionFound = true;
+                                                return true;
+                                              } else {
+                                                nextSectionId = $(this).attr("id");
+                                                return !sectionFound;
+                                              }
+                                        });
+                            return nextSectionId;
+                          };
+                          
+                          var registerAjaxCall = function(slideId, consoleId, url, dataType, mvnHint) {
+                          $("body").keydown(function(e) {
+                                            if(e.keyCode == 37) { // left
+                                            if (nextSectionId($(".slide.cover.active")) == slideId) {
+                                                makeAjaxCall(consoleId, url, dataType, mvnHint);
+                                            }
+                                            } else if(e.keyCode == 39) { // right
+                                            if (nextSectionId($(".slide.cover.active")) == slideId) {
+                                                makeAjaxCall(consoleId, url, dataType, mvnHint);
+                                            }
+                                            }
+                                            });
+                          
+                          };
+                          registerAjaxCall("ApplicationHello", "#ApplicationHelloOut", "http://localhost:8880/hello", "text", "mvn -Papp exec:java");
+                          registerAjaxCall("ApplicationError", "#ApplicationErrorOut", "http://localhost:8880/explode", "json", "mvn -Papp exec:java");
+                          registerAjaxCall("ServiceHello", "#ServiceHelloOut", "http://localhost:8882/hello", "text", "mvn -Psvc exec:java");
+                          registerAjaxCall("ServiceRouteHello", "#ServiceRouteHelloOut", "http://localhost:8882/route/hello", "text", "mvn -Psvc exec:java");
+                          registerAjaxCall("BoxedHello", "#BoxedHelloOut", "http://localhost:8884/DevoxxJEE/application/hello", "text", "mvn install tomcat7:run-war-only");
+        });
+    </script>
+	<!-- Copyright © 2015 Koen Roevens, Fluid-IT bvba -->
+</body>
+</html>
