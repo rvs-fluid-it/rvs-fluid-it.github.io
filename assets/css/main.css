@@ -58,6 +58,8 @@
 
 /* Containers */
 
+
+
 	.container {
 		margin-left: auto;
 		margin-right: auto;
@@ -3343,7 +3345,25 @@
 		z-index: 21;
 	}
 
-		#banner:before {
+	.banner-content {
+	z-index:24;
+	position:absolute;
+	top: 0;
+	left: 0;
+	width:100%;
+}
+
+.particles-content {
+	z-index:23;
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.75);
+}
+
+		/*#banner:before {
 			content: '';
 			display: inline-block;
 			height: 100vh;
@@ -3363,7 +3383,7 @@
 			position: absolute;
 			top: 0;
 			width: 100%;
-		}
+		}*/
 
 		#banner .content {
 			display: inline-block;
@@ -3374,6 +3394,7 @@
 			text-align: right;
 			vertical-align: middle;
 			z-index: 1;
+			height:100vh;
 		}
 
 			#banner .content header {
