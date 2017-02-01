@@ -1585,6 +1585,11 @@
 		text-decoration: none;
 	}
 
+        #four a{
+                border-bottom-color: transparent;
+        }
+
+
 		a:hover {
 			color: #e44c65 !important;
 			border-bottom-color: transparent;
