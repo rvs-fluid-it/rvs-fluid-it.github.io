@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Shower Presentation Engine</title>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/logo.css" />	
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen-16x10.css">
+
+</head>
+<body class="shower list">
+	<header class="caption">
+		<h1>Infoschermen Brandweer Antwerpen</h1>
+		<p>Koen Roevens, Fluid-IT</p>
+	</header>
+	<section class="slide" id="cover">
+		<h2>Voorstel: Infoschermen Brandweer Antwerpen</h2>
+		<p>Brought to you by Koen Roevens, <a href="http://www.fluid-it.be"><span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></a></p>
+		<img src="pictures/brandweer-actie.jpg" alt="" class="cover">
+		<!--
+			To apply styles to the certain slides
+			set slide ID to get needed elements
+			-->
+		<style>
+			#cover h2 {
+				margin:30px 0 0;
+				color:#FFF;
+				text-align:center;
+				font-size:70px;
+				}
+			#cover p {
+				margin:10px 0 0;
+				text-align:center;
+				color:#FFF;
+				font-style:italic;
+				font-size:20px;
+				}
+				#cover p a {
+					color:#FFF;
+					}
+		</style>
+	</section>
+	<section class="slide">
+		<h2 class="shout shrink">Setting the stage</h2>
+	</section>
+	<section class="slide">
+		<h2>Digital signage product by <img src="pictures/logo-fluid-it.png" width="30%" height="30%"></h2>
+		<ul>
+			<li>Multi sector</li>
+			<li>First focus retail sector</li>
+			<li>Modular and extensible</li>
+			<li>Distribution: SAAS + On premises</li>
+			<li>Status: POC</li>
+			<li>License: GPLv2?</li>
+			<li>Intellectual property:  <span class="fluid"><font size="6">fluid</font></span><span class="hexagon"><font size="5">IT</font></span></li>
+		</ul>
+	</section>
+	<section class="slide">
+		<h2>Kostenplaatje voor Digipolis</h2>
+		<ul>
+			<li>Licentie</li>
+			<li>Inbouwen in ACPaas, aanpassen aan DAAS</li>
+			<li>Customizeren bv. templates</li>
+			<li>Configuratie, integratie- en acceptatietesten, uitrol</li>
+			<li>Ondersteuning, opleiding</li>
+			<li>Projectbeheer</li>
+		</ul>
+	</section>	
+	<section class="slide">
+		<h2>Post monolithic CMS</h2>
+		<img src="pictures/post-monolithic-cms-Screen_Shot_2017-05-12_at_11.22.11_AM.png" width="60%" height="60%">
+		<p style="font-style:italic;"><a href="https://www.youtube.com/watch?v=UgHSqXeoOiY">See presentation 'Post-Monolithic Content Management' by Jessica Parsons</a> </p>
+	</section>
+	<section class="slide">
+		<h2>JAMstack player content</h2>
+		<img src="pictures/jam-stack.png" width="50%" height="50%">
+		<ul>
+			<li>Static sites uploaded to digital signage players</li>
+			<li>Enriched with realtime data by calling APIs</li>
+		</ul>
+	</section>
+	<section class="slide">
+		<h2>Digital signage player prerequisites</h2>
+		<ul>
+			<li>Modern HTML5 ready browser</li>
+			<ul>
+				<li>CSS3 animations</li>
+				<li>Html5 video player</li>
+				<li>Websockets</li>
+			</ul>
+			<li>SFTP access</li>
+		</ul>
+	</section>
+	<section class="slide">
+		<h2 class="shout shrink">Brandweer interventies</h2>
+	</section>
+	<section class="slide">
+		<h2>Publicatie interventienieuws verwachtingen</h2>
+		<ul>
+			<li>Interventieniews realtime op schermen</li>
+			<li>Filteren op basis van locatie, ...</li>
+            <li>Microservices</li>
+			<li>Robuust, betrouwbaar</li>
+			<li>Uitbreidbaar naar andere groepen</li>
+			<li>Ingebed in ACPaaS</li>
+		</ul>
+	</section>
+	<section class="slide">
+		<h2>Reactive systems</h2>
+		<img src="pictures/message-driven-elastic-resilient-responsive.png" width="50%" height="60%">
+		<p style="font-style:italic;"><a href="http://www.reactivemanifesto.org/">See 'The Reactive Manifesto'</a> </p>
+	</section>
+	<section class="slide">
+		<h2>To Be: Interventies API</h2>
+		<img src="pictures/to-be-interventies-api.png" width="60%" height="60%">
+	</section>
+	<section class="slide">
+		<img src="pictures/vertx_in_one_slide.png" width="80%" height="80%">
+		<p style="font-style:italic;" ><a href="https://www.slideshare.net/clement.escoffier/vertx-31-be-reactive-on-the-jvm-but-not-only-in-java"><font size="4">Source: https://www.slideshare.net/clement.escoffier/vertx-31-be-reactive-on-the-jvm-but-not-only-in-java</font></a></p>
+	</section>	
+	<section class="slide">
+		<h2>Why VertX?</h2>
+        <ul style="font-size:24px;">
+			<li>Toolkit to build reactive microservices</li>
+			<li>Distributed eventbus (including SockJS bridge)</li>
+			<li>Scalability, performance</li>
+			<li>As simple as possible but not simplistic</li>
+			<li>Open source</li>
+			<li>Mature</li>
+			<li>Professional support</li>			
+		</ul>
+        <img src="pictures/batteries-included.png" width="60%">	
+	</section>
+	<section class="slide">
+		<h2>More info @<img src="pictures/redhat.png" height="50"></h2>
+        <img src="pictures/reactivemicroservices_solp_270px.png" height="60%">	
+	</section>
+	<section class="slide">
+		<h2 class="shout shrink">Beheer schermen</h2>
+	</section>
+	<section class="slide">
+		<h2>Rundeck use case</h2>
+		<img src="pictures/rundeck-pu-share-standard-operating-procedures.png" height="60%">
+		<p style="font-style:italic;" ><a href="http://rundeck.org/"><font size="4">Source: http://rundeck.org/ Popular Uses</font></a></p>
+	</section>
+	<section class="slide">
+		<h2>Rundeck use case</h2>
+		<img src="pictures/rundeckuse_jobscheduler.png" height="60%">
+		<p style="font-style:italic;" ><a href="http://rundeck.org/"><font size="4">Source: http://rundeck.org/ Popular Uses</font></a></p>
+	</section>
+	<section class="slide">
+		<h2>Rundeck use case</h2>
+		<img src="pictures/rundeckuse_zeroclickdeploy.png" height="60%">
+		<p style="font-style:italic;" ><a href="http://rundeck.org/"><font size="4">Source: http://rundeck.org/ Popular Uses</font></a></p>
+	</section>
+	<section class="slide">
+		<h2>Rundeck use case</h2>
+		<img src="pictures/rundeckuse_poweredby.png" height="60%">
+		<p style="font-style:italic;" ><a href="http://rundeck.org/"><font size="4">Source: http://rundeck.org/ Popular Uses</font></a></p>
+	</section>
+	<section class="slide">
+		<h2>Why Rundeck?</h2>
+        <ul style="font-size:24px;">
+			<li>Product to build self service solutions</li>
+			<li>Covers many aspects</li>
+			<li>UI + REST api + CLI</li>
+			<li>Pluggable, flexible</li>
+			<li>Open source</li>
+			<li>Mature</li>
+			<li>Professional support</li>			
+		</ul>
+        <img src="pictures/batteries-included.png" width="60%">	
+	</section>
+	<section class="slide">
+		<h2>Rundeck referentie <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></h2>
+		<img src="pictures/taskmanager.png" height="80%">
+	</section>	
+	<section class="slide">
+		<h2>Rundeck referentie <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></h2>
+		<img src="pictures/task-manager-rundeck-job-ares.jpg" height="60%">
+	</section>	
+	<section class="slide">
+		<h2>Rundeck referentie <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></h2>
+		<img src="pictures/task-manager-rundeck-job-rtd.jpg" height="60%">
+	</section>	
+	<section class="slide">
+		<h2>Rundeck referentie <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></h2>
+		<img src="pictures/task-manager-rundeck-activity.jpg" height="70%">
+	</section>	
+	<section class="slide">
+		<h2>Rundeck referentie <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></h2>
+		<img src="pictures/task-manager-rundeck-activity-execution.jpg" height="70%">
+	</section>	
+	<section class="slide">
+		<h2>Rundeck referentie <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span></h2>
+		<img src="pictures/task-manager-rundeck-activity-execution-html.jpg" height="70%">
+	</section>
+	<section class="slide">
+		<h2 class="shout shrink">Weergave bedrijfsnieuws</h2>
+	</section>
+	<section class="slide">
+		<h2>Static site generator fits slideshow usecase</h2>
+        <ul>
+			<li>Relatively small site</li>
+			<li>No user interactivity</li>
+			<li>More robust</li>
+			<li>More secure, smaller attack service</li>
+			<li>Atypical content for a CMS</li>
+			<li>Designer in the driver seat</li>
+		</ul>	
+	</section>		
+	<section class="slide">
+		<h2>Why <img src="pictures/hugo.jpeg" width="25%"> Static Site Generator?</h2>
+        <ul>
+			<li>Performnance</li>
+			<li>Easy to install</li>
+			<ul>
+				<li>Run locally</li>
+				<li>Facilitates automated testing</li>
+			</ul>
+			<li>Make the web fun again</li>
+			<li>Open source</li>
+		</ul>
+        <p style="font-style:italic;"><a href="http://gohugo.io">See http://gohugo.io</a></p>	
+	</section>		
+	<section class="slide">
+		<h2><img src="pictures/netlify-cms.jpeg" height="100"> Editor UI <img src="pictures/missing-link.jpeg" height="100"></h2>
+        <ul>
+			<li>Hides HTML from editor</li>
+			<li>Hides Git commands from editor</li>
+			<li>Life preview</li>
+			<li>Extendable with custom widgets</li>
+			<li>Based upon React</li>
+		    <li>Open source</li>
+	</section>		
+	<section class="slide">
+		<img src="pictures/netlify-cms-ui-post.jpg" class="cover">
+	</section>
+	<section class="slide">
+		<img src="pictures/netlify-cms-ui-products-page.jpg" class="cover">
+	</section>
+	<section class="slide">
+		<img src="pictures/netlify-cms-ui-config-yml.jpg" class="cover">
+	</section>
+	<section class="slide">
+		<h2 class="shout shrink">Architectuur</h2>
+	</section>
+	<section class="slide">
+		<img src="pictures/architectuur-infoschermen-brandweer.png" class="cover">
+	</section>
+	<section class="slide">
+		<h2>To Be: DisplaysNavigator API</h2>
+		<img src="pictures/to-be-displays-navigator-api.png" height="80%">
+	</section>		
+	<section class="slide">
+		<h2>Rundeck Deploy Slideshow Job</h2>
+        <ul>
+			<li>De job wordt automatisch getriggerd via Bamboo</li>
+			<li>De job kan 'ad hoc' opgestart worden via Rundeck/NetlifyCMS</li>
+			<li>De job delegeert het genereren van de static site naar de Hugo µService</li>
+			<li>De job gebruikt de 'sftp node executor' om de static site op te laden naar het juiste scherm</li>
+			<li>De job brengt de displays navigator µservice op de hoogte van de nieuw opgeladen static site</li>
+		</ul>
+	</section>
+	<section class="slide">
+		<h2>Uitbreiding/aanpassingen NetlifyCMS</h2>
+        <ul>
+			<li>Customisatie v/d publicatie workflow</li>
+			<li>Import slide functionaliteit</li>
+			<li>Uitbreiden met slide preview template (React component)</li>
+			<li>Ondersteuning van een Bitbucket backend</li>
+		</ul>
+	</section>		
+	<section class="slide">
+		<img src="pictures/suggestions-solutions.png" height="80%">
+	</section>	
+	<section class="slide">
+		<h2  class="shout shrink"><font size="24">Waarom</font> <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span>?</h2>
+	</section>
+	<section class="slide">
+		<h2>Sterktes <span class="fluid"><font size="8">fluid</font></span><span class="hexagon"><font size="6">IT</font></span>?</h2>
+        <ul>
+			<li>Prijsmodel</li>
+			<li>Integratie in ACPaas</li>
+			<li>Team met 2 jaar ervaring in µServices</li>
+			<li>Team is begeesterd en ervaren met Agile aanpak</li>
+			<li>Laag risico project (IMHO voor FluidIT)</li>
+			<li>Extra mijl</li>
+		</ul>	
+		<p style="font-style:italic;"><a href="https://www.fluid-it.be">Voor meer achtergrond formatie www.fluid-it.be</a> </p>
+	</section>	
+	<section class="slide">
+		<h2 class="shout shrink">???</h2>
+	</section>
+	<!--
+		To hide progress bar from entire presentation
+		just remove “progress” element.
+	-->
+	<div class="progress"></div>
+	<script src="shower/shower.min.js"></script>
+	<!-- Copyright © 2015 Yours Truly, Famous Inc. -->
+	<!-- Photos by John Carey, fiftyfootshadows.net -->
+</body>
+</html>

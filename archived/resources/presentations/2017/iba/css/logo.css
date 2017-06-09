@@ -1,0 +1,21 @@
+@import url("font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,100italic,300italic");
+
+@font-face { 
+	font-family: MoonHouse; 
+	src: url('../fonts/moonhouse.ttf') format("truetype");
+}
+@font-face { 
+	font-family: D3HoneycombismB; 
+	src: url('../fonts/D3HoneycombismB.ttf') format("truetype");
+} 
+
+
+span.fluid {
+	font-family: MoonHouse;
+	font-style: normal;
+}
+span.hexagon {
+	font-family: D3HoneycombismB;
+	font-style: normal;
+}
