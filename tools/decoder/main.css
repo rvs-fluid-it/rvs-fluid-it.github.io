@@ -1,0 +1,179 @@
+h1 {
+    margin: 20px;
+}
+
+option {
+    padding: 4px;
+}
+
+#saveData {
+    display: none;
+}
+
+.messages, .nav-tabs .nav-link.active {
+    background-color: #f2f2f2;
+}
+
+.highlight {
+    background-color: #c4e6f1;
+    font-weight: bold;
+}
+
+.pubsubMsg {
+    padding: 4px;
+    margin: 2px 0;
+    background-color: white;
+    border: 1px solid #a2a2a2;
+    display: block;
+    height: 35px;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+.pubsubMsg:hover {
+    cursor: pointer;
+}
+
+#viewToggle {
+    float: right;
+}
+
+#viewContainer.full #inputSelection .selection {
+    display: none ! important;
+}
+
+#viewContainer.full #inputSelection .messageDetail {
+    display: block ! important;
+    flex: 0 0 100%;
+    max-width: 100%;
+}
+
+#encodedInput {
+    border: 1px solid #a2a2a2;
+    height: 300px;
+    overflow-y: scroll;
+    word-break: break-word;
+}
+
+#inputSelection {
+    display: flex;
+}
+
+#status {
+    padding: 12px;
+    display: flow-root;
+    background-color: #f2f2f2;
+    margin: 10px;
+    border: 1px solid #a2a2a2;
+}
+
+#status div {
+    display: inline-block;
+}
+
+.tabContent {
+    display: none;
+}
+
+.tabContent.active {
+    display: inline-flex;
+    max-width: 100%;
+}
+
+.row {
+    position: relative;
+}
+#inputGroup.active{
+    display:block;
+}
+#textInput {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+#saveData {
+    display: none;
+    padding: 12px;
+}
+
+#saveData input {
+    border: 0;
+    background-color: #F1F1F1;
+    padding: 0 20px;
+}
+
+.collapseTrigger {
+    padding: 12px;
+    font-weight: bold;
+    border: 1px solid black;
+    margin-bottom: 2px;
+    cursor: pointer;
+}
+
+.source {
+    display: none;
+    padding: 12px 0;
+}
+
+.collapseTrigger.active {
+    background-color: #167fac;
+    color: white;
+}
+
+.collapseTrigger.active .source {
+    display: inline-block;
+}
+
+.records .detail {
+    display: flex;
+    padding: 0 12px;
+}
+
+.records.indent-0 {
+    background-color: #F1F1F1
+}
+
+.records.indent-1 {
+    background-color: #DFDFDF;
+    margin-left: 10px;
+}
+
+.records.indent-2 {
+    background-color: #C1C1C1;
+    margin-left: 20px;
+}
+
+.records.indent-3 {
+    background-color: #909090;
+    margin-left: 30px;
+}
+
+.records.indent-4 {
+    background-color: #616161;
+    margin-left: 40px;
+}
+.recordSpacer{
+    height: 10px;
+}
+
+.records .collapse.show .detail {
+    background-color: #c4e6f1;
+}
+
+.records .collapse.show .detail:nth-child(2n+1) {
+    background-color: #e8f3f7;
+}
+
+.records .detail span {
+    word-break: break-all;
+}
+
+.records .detail div {
+    padding: 4px;
+    min-width: 60px;
+    word-break: break-all;
+}
+
+.records .detail div:nth-child(2) {
+    padding: 4px;
+    width: 250px;
+}

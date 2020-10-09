@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Nexuzhealth Efact Decoder Tool</title>
+    <script src="wasm_exec.js"></script>
+    <script src="wasm.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Nexuzhealth Efact Decoder Tool</h1>
+    <div id="status">
+        <div>
+            <span class="p-2">BackendDecoder:</span>
+            <div id="wasmstatus">
+                <div class="btn btn-danger disabled">Inactive</div>
+                <div class="btn btn-success disabled" hidden>Active</div>
+            </div>
+        </div>
+        <div>
+            <span class="p-2">PubSubListener:</span>
+            <div id="pubsubstatus">
+                <div class="btn btn-danger disabled">Inactive</div>
+                <div class="btn btn-success disabled" hidden>Active</div>
+            </div>
+        </div>
+        <btn id="viewToggle" class="btn btn-info">Toggle View</btn>
+    </div>
+
+    <div id="viewContainer">
+    <div id="inputSelection">
+        <div class="selection col-6">
+            <div class="row pl-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-id="localstorage" href="#">Localstorage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-id="upload" href="#">Upload</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-id="pubsub" href="#">Pubsub</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row messages p-3">
+                <div class="tabContent active col-12" data-id="localstorage">
+                    <select id="messagesSelect" class="col-12" size="8">
+                        <option value="920000  02  92  00  15120001000001  00000000000000                 202009  018  20200908  REFFACTURE001  9991999  Lejeune                                        Maud                      0112400250  03  01                      1000000109991999000000000000000001800000000000000000040010937640004000000000000000000000000000000000000000002020090000020200908099999992220042711005170           0000GEBABEBB   0BE14001230880183                  000000           00000000000000000000000000000000000000000                                  000000000000000000000000000000000000000000001320000002100000000000000000000000309008705222686121000020109376400040720991100000000030900000000000000000000000000000000001374300000120120                     M74300000000000010000000                      000000000000000000000000000000000000000000000000000000000000000000                      0000000000000000000000000000000000000000000000000000000080500000030010904520200908202009083090087052226861200000207209911000001093764000410000000+0000000396320200601+0001000134969557801+000000000                         00+00000000080010000000000000000000000000000000000000000000000000000                              0+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000061510000040010904520200908000000000000087052226861000000000000000000001093764000400000000+000000039630000000000000000000000000000000012012000000000000000000000000000000000000000000000000000000000000000000000000000080001OSPKZEQTBJACBYS1TRAOG3MXW2S00000000000020000000000000000000000000000000000000000000000000000000000000002020090800000000000000000000288000000500000000000000000000000030900870522268612100002010937640004+0000000000000000309+000000039630000000000000000000000137430+000000000                         00+00000000010000000+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000034239000000600000000000000000000000001800000000000000000000010937640004+0000000000000000000+0000000396300000000020200900000000000000999999922                         0000GEBABEBB   0BE14001230880183                  000000           00000000000000000000000000000000000000000                                  000000000000000000000000000000000000000000346195003090000000000001100+0000000396300+0000000000000+000000039630000000004003400+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009600399  00000000000000+0000000396300+0000000000000+000000039630000000006003400+000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000">
+                            Hardcoded Test Message
+                        </option>
+                    </select>
+                </div>
+                <div class="tabContent col-12" id="inputGroup" data-id="upload">
+                    <div class="input-group">
+                        <div class="custom-file m-1">
+                            <input type="file" class="custom-file-input" id="inputFile">
+                            <label class="custom-file-label" for="inputFile">Select a file to upload</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="col-12 p-0 m-1">
+                            <textarea id="textInput" class="col-12" placeholder="Paste message"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tabContent col-12 p-0" data-id="pubsub">
+                    <div id="pubsubMessages" class="col-12 p-0">
+                        <div class="alert alert-info" role="alert">Listening on topic: <span id="pubsubTopic"></span></div>
+                        <div id="pubsubInactive" class="alert alert-danger" role="alert">Not listening to pubsub <span id="pubsubTopic"></span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="messageDetail col-6 mb-3">
+            <h6>Full message:</h6>
+            <div id="encodedInput" class="col-12"></div>
+            <div id="saveData" class="input-group col-12">
+                    <input type="text" class="col-10" placeholder="Name to store data" id="inputFileName">
+                    <button id="fileNameSave" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <hr>
+    <h5>Records:</h5>
+    <div id="decodedOutput"></div>
+</div>
+</body>
+</html>
