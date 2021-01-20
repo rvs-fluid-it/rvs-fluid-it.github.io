@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Efact Decoder Tool</title>
+    <script src="wasm_exec.js"></script>
+    <script src="wasm.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Efact Decoder Tool</h1>
+    <div id="status">
+        <div>
+            <span class="p-2">BackendDecoder:</span>
+            <div id="wasmstatus">
+                <div class="btn btn-danger disabled">Inactive</div>
+                <div class="btn btn-success disabled" hidden>Active</div>
+            </div>
+        </div>
+        <div>
+            <span class="p-2">PubSubListener:</span>
+            <div id="pubsubstatus">
+                <div class="btn btn-danger disabled">Inactive</div>
+                <div class="btn btn-success disabled" hidden>Active</div>
+            </div>
+        </div>
+        <btn id="viewToggle" class="btn btn-info">Toggle View</btn>
+    </div>
+
+    <div id="viewContainer">
+    <div id="inputSelection">
+        <div class="selection col-6">
+            <div class="row pl-3">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-id="localstorage" href="#">Localstorage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-id="upload" href="#">Upload</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-id="pubsub" href="#">Pubsub</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row messages p-3">
+                <div class="tabContent active col-12" data-id="localstorage">
+                    <select id="messagesSelect" class="col-12" size="8">
+                        <option value="931000  02  92  00  15120001000001  00000002356775                 92000000">
+                            Hardcoded Test Message
+                        </option>
+                    </select>
+                </div>
+                <div class="tabContent col-12" id="inputGroup" data-id="upload">
+                    <div class="input-group">
+                        <div class="custom-file m-1">
+                            <input type="file" class="custom-file-input" id="inputFile">
+                            <label class="custom-file-label" for="inputFile">Select a file to upload</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="col-12 p-0 m-1">
+                            <textarea id="textInput" class="col-12" placeholder="Paste message"></textarea>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tabContent col-12 p-0" data-id="pubsub">
+                    <div id="pubsubMessages" class="col-12 p-0">
+                        <div class="alert alert-info" role="alert">Listening on topic: <span id="pubsubTopic"></span></div>
+                        <div id="pubsubInactive" class="alert alert-danger" role="alert">Not listening to pubsub <span id="pubsubTopic"></span></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="messageDetail col-6 mb-3">
+            <h6>Full message:</h6>
+            <div id="encodedInput" class="col-12"></div>
+            <div id="saveData" class="input-group col-12">
+                    <input type="text" class="col-10" placeholder="Name to store data" id="inputFileName">
+                    <button id="fileNameSave" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <hr>
+    <h5>Records:</h5>
+    <div id="decodedOutput"></div>
+</div>
+</body>
+</html>

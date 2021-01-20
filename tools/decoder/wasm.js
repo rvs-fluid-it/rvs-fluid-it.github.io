@@ -183,6 +183,7 @@ function addPubSubMessage(data) {
 
 function handleFileLoad(event) {
     document.getElementById('encodedInput').innerHTML = event.target.result;
+    updateDecodedOutput();
     enableSaveButton();
 }
 
