@@ -13,14 +13,16 @@ function buildTree(input) {
     }
     let currentRecord, currentIndent = 0;
     for (const key in data) {
+        let index = 0
         const recordString = getRecordString(data[key].Records)
         const recordType = data[key].RecordType
         if (parseInt(recordType) < currentRecord && parseInt(data[key].Indent) == currentIndent) {
             output += "<div class='recordSpacer'></div>"
         }
         output += "<div class='records  indent-" + data[key].Indent + "'>"
-        output += "<div class='label collapseTrigger' data-ref='"+recordString+"' data-toggle=\"collapse\" data-target=\"" + recordType + "Data\">" + recordType + "</div>"
-        output += "<div id='" + recordType + "Data' class='collapse recordData'>"
+
+        output += "<div class='label collapseTrigger' data-ref='"+recordString+"' data-toggle=\"collapse\" data-target=\"" + recordType + index + "Data\">" + recordType + "</div>"
+        output += "<div id='" + recordType + index +"Data' class='collapse recordData'>"
         output += "<div class='detail'>Source<div></div><span>"+recordString+"</span></div>"
         for (const r in data[key].Records) {
             const decoded = data[key].Records[r];
@@ -29,9 +31,17 @@ function buildTree(input) {
             output += "<div>" + decoded.Value + "</div>"
             output += "<div>" + decoded.Description + "</div>"
             output += "</div>"
+            if (recordType === "50" && decoded.Zone === "99") {
+                index = index + 1
+                output += "</div>"
+                output += "<div class='label collapseTrigger' data-ref='"+recordString+"' data-toggle=\"collapse\" data-target=\"" + recordType + index +"Data\">" + recordType + "</div>"
+                output += "<div id='" + recordType + index +"Data' class='collapse recordData'>"
+                output += "<div class='detail'>Source<div></div><span>"+recordString+"</span></div>"
+            }
         }
         output += "</div>"
         output += "</div>"
+
         currentRecord = parseInt(recordType)
         currentIndent = parseInt(data[key].Indent)
     }
@@ -136,7 +146,7 @@ function initCollapsible() {
             innerVal = innerVal.replace('<span class="highlight">', '').replace('</span>', '')
             if (!active) {
                 event.target.classList.add('active')
-                event.target.parentElement.querySelector('.collapse').classList.add('show');
+                document.getElementById(event.target.dataset.target).classList.add('show');
                 innerVal = innerVal.replace(dataStr, '<span class="highlight">'+dataStr+'</span>')
             }
             InputDiv.innerHTML = innerVal
